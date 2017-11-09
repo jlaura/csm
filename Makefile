@@ -1,3 +1,5 @@
+
+
 HEADERS = csm.h Error.h Warning.h Version.h Isd.h BytestreamIsd.h NitfIsd.h Plugin.h Model.h GeometricModel.h RasterGM.h CorrelationModel.h FourParameterCorrelationModel.h LinearDecayCorrelationModel.h
 
 OBJS = Version.o Plugin.o GeometricModel.o RasterGM.o CorrelationModel.o FourParameterCorrelationModel.o LinearDecayCorrelationModel.o Isd.o
@@ -25,8 +27,6 @@ LD=$(CC)
 	$(CC) -c $(COPTS) $< -o $@
 
 $(LIBRARY): $(OBJS)
-	@echo $(LIBRARY)
-	@echo $@
 	$(LD) $(COPTS) $(LDOPTS) $^ $(LIBS) -o $(LIBRARY)
 
 all: $(HEADERS) $(LIBRARY)
