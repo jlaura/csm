@@ -1,8 +1,8 @@
 
 
-HEADERS = csm.h Error.h Warning.h Version.h Isd.h BytestreamIsd.h NitfIsd.h Plugin.h Model.h GeometricModel.h RasterGM.h CorrelationModel.h FourParameterCorrelationModel.h LinearDecayCorrelationModel.h
+HEADERS = BundleGM.h BytestreamIsd.h CorrelationModel.h csm.h csmPointCloud.h Ellipsoid.h Error.h FourParameterCorrelationModel.h GeometricModel.h Isd.h LinearDecayCorrelationModel.h Model.h ModelIdentifier.h NitfIsd.h Plugin.h PointCloudGM.h PointCloudIsd.h RasterGM.h SettableEllipsoid.h Version.h Warning.h
 
-OBJS = Version.o Plugin.o GeometricModel.o RasterGM.o CorrelationModel.o FourParameterCorrelationModel.o LinearDecayCorrelationModel.o Isd.o
+OBJS = BundleGM.o CorrelationModel.o csmPointCloud.o Ellipsoid.o FourParameterCorrelationModel.o GeometricModel.o Isd.o LinearDecayCorrelationModel.o ModelIdentifier.o Plugin.o PointCloudGM.o PointCloudIsd.o RasterGM.o SettableEllipsoid.o Version.o  
 
 LIBNAME=libcsmapi
 LIBVERSION=3
@@ -52,4 +52,3 @@ doxygen::
 	echo "INPUT_FILTER           = $(DOXYGEN_FILTER)" >> $(DOXYFILE)
 	rm -rf $(DOXYGEN_OUT)
 	cd $(dir $(DOXYFILE)) && doxygen
-
