@@ -227,7 +227,7 @@ public:
          //  of type INT_TYPE
          //<
       bool contains(double argValue) const;
-         //> This method determines if the specified double is in the current
+         //> This method determines if the specified integer is in the current
          //  range, which will only be true if the current data type is
          //  of type DOUBLE_TYPE
          //<
@@ -528,4 +528,3 @@ private:
 }  // namespace csm
 
 #endif
-

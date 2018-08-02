@@ -1,6 +1,6 @@
 include Makefile
 
 CC=g++
-COPTS=-fPIC -O2 -m64 -Wall #-std=c++11 -c
-LDOPTS=-shared -Wl,-soname,$(LIBRARY)
+COPTS=-fPIC -O2 -m64 -Wall
+LDOPTS=-shared -Wl,-soname,$(SONAME)
 INSTDIR=$(PWD)/linux64

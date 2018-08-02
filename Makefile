@@ -1,11 +1,12 @@
 
 
-HEADERS = BundleGM.h BytestreamIsd.h CorrelationModel.h csm.h csmPointCloud.h Ellipsoid.h Error.h FourParameterCorrelationModel.h GeometricModel.h Isd.h LinearDecayCorrelationModel.h Model.h ModelIdentifier.h NitfIsd.h Plugin.h PointCloudGM.h PointCloudIsd.h RasterGM.h SettableEllipsoid.h Version.h Warning.h
+HEADERS = csm.h Error.h Warning.h Version.h Isd.h BytestreamIsd.h NitfIsd.h Plugin.h Model.h GeometricModel.h RasterGM.h CorrelationModel.h FourParameterCorrelationModel.h LinearDecayCorrelationModel.h csmPointCloud.h PointCloudIsd.h PointCloudGM.h ModelIdentifier.h BundleGM.h Ellipsoid.h SettableEllipsoid.h
 
-OBJS = BundleGM.o CorrelationModel.o csmPointCloud.o Ellipsoid.o FourParameterCorrelationModel.o GeometricModel.o Isd.o LinearDecayCorrelationModel.o ModelIdentifier.o Plugin.o PointCloudGM.o PointCloudIsd.o RasterGM.o SettableEllipsoid.o Version.o  
+OBJS = Version.o Isd.o Plugin.o GeometricModel.o RasterGM.o CorrelationModel.o FourParameterCorrelationModel.o LinearDecayCorrelationModel.o csmPointCloud.o PointCloudIsd.o PointCloudGM.o ModelIdentifier.o BundleGM.o Ellipsoid.o SettableEllipsoid.o
+
 
 LIBNAME=libcsmapi
-LIBVERSION=3
+LIBVERSION=3.0.3
 
 DOXYGEN_OUT=/programs/origin/html/doxygen/csm3
 DOXYGEN_FILTER=$(PWD)/scripts/doxygen-filter.pl
@@ -19,6 +20,10 @@ LN=ln -s
 TAR=tar
 
 LD=$(CC)
+
+# compute the "major" version from the library version
+MAJORLIBVERSION=$(word 1,$(subst ., ,$(LIBVERSION)))
+SONAME=$(LIBNAME).so.$(MAJORLIBVERSION)
 
 %.o: %.cpp
 	$(CC) -c $(COPTS) $< -o $@
@@ -35,6 +40,7 @@ install::
 	$(MKDIR) -p $(INSTDIR)/lib
 	$(CP) $(LIBRARY) $(INSTDIR)/lib
 	$(RM) $(INSTDIR)/lib/$(LIBNAME).so && $(LN) $(LIBRARY) $(INSTDIR)/lib/$(LIBNAME).so
+	@if [ "$(LIBVERSION)" != "$(MAJORLIBVERSION)" ]; then $(RM) $(INSTDIR)/lib/$(LIBNAME).so.$(MAJORLIBVERSION) && $(LN) $(LIBRARY) $(INSTDIR)/lib/$(LIBNAME).so.$(MAJORLIBVERSION); fi
 	$(MKDIR) -p $(INSTDIR)/include/csm
 	$(CP) $(HEADERS) $(INSTDIR)/include/csm
 
