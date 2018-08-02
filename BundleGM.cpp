@@ -61,4 +61,3 @@ const MIC::RangeList& BundleGM::rangesFor(const std::string& name) const
    return theDescription.rangesFor(name);
 }
 } // namespace csm
-

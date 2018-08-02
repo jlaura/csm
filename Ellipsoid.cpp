@@ -20,17 +20,10 @@
 #define CSM_LIBRARY
 #endif
 
-#ifdef IRIXN32
-#include "math.h"
-#else
-#include <cmath>
-using std::exp;
-using std::fabs;
-#endif
-
 #include "Ellipsoid.h"
+#include <math.h>
 
-namespace csm
+namespace csm 
 {
    //*****************************************************************************
    // Ellipsoid::Ellipsoid()

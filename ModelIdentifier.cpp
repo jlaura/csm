@@ -1340,5 +1340,3 @@ bool MIDescription::inRange(const ModelIdentifier& id) const
    return allInRange;
 }
 }  // namespace csm
-
-

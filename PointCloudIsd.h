@@ -16,6 +16,7 @@
 //     Date          Author   Comment
 //     -----------   ------   -------
 //     01-DEC-2014   ISK      Initial version.
+//     22-FEB-2018   JPK      Changed macro for inclusion into csm library.
 //
 //    NOTES:
 //
@@ -32,14 +33,13 @@
 
 namespace csm
 {
-
 //***
 // CLASS: Vlr
 //> Variable Length Record (VLR) class.  VLRs contain most of the support
 //  data needed to instantiate a model.
 //<
 //***
-class CSM_POINT_CLOUD_EXPORT_API Vlr
+class CSM_EXPORT_API Vlr
 {
 public:
    Vlr() : theUserId(),
@@ -153,7 +153,7 @@ protected:
 //  can be used to retrieve the format and access the data.
 //<
 //***
-class CSM_POINT_CLOUD_EXPORT_API PointCloudIsd : public Isd
+class CSM_EXPORT_API PointCloudIsd : public Isd
 {
 public:
    virtual ~PointCloudIsd();
@@ -190,7 +190,7 @@ private:
    std::vector<Vlr> theVlrs;
 };
 
-class CSM_POINT_CLOUD_EXPORT_API LasIsd : public PointCloudIsd
+class CSM_EXPORT_API LasIsd : public PointCloudIsd
 {
 public:
    LasIsd(
@@ -199,7 +199,7 @@ public:
    virtual ~LasIsd();
 };
 
-class CSM_POINT_CLOUD_EXPORT_API BpfIsd : public PointCloudIsd
+class CSM_EXPORT_API BpfIsd : public PointCloudIsd
 {
 public:
    BpfIsd(

@@ -7,10 +7,9 @@
 //    DESCRIPTION:
 //
 //    Additions were made to the CSM API in CSM 3.0.2 to handle point clouds.
-//    The previous API did not change. The additions are separated into this
-//    library so that RasterGM plugins can link the previous API and still be
-//    compatible with CSM 3.0.1 on Windows. The libraries did not need to be
-//    separate for Solaris and Linux.
+//    The previous API did not change. Previously this code was in a separate
+//    library, but has now been migrated into a single library as of
+//    CSM3.0.3
 //
 //    LIMITATIONS:       None
 //
@@ -19,6 +18,8 @@
 //     Date          Author   Comment
 //     -----------   ------   -------
 //
+//    22FEB2018     JPK       Modified to use existing csm macros (since
+//                            point cloud is no longer in a separate library).
 //    NOTES:
 //
 //#############################################################################
@@ -26,31 +27,11 @@
 #ifndef __CSM_CSM_POINT_CLOUD_H
 #define __CSM_CSM_POINT_CLOUD_H
 
-#include <cstring>
 #include <string>
-
-// This include ensures that CURRENT_CSM_VERSION below isn't overwritten by
-// csm.h.
 #include "csm.h"
 
-#ifdef _WIN32
-# ifdef CSM_POINT_CLOUD_LIBRARY
-#  define CSM_POINT_CLOUD_EXPORT_API __declspec(dllexport)
-# else
-#  define CSM_POINT_CLOUD_EXPORT_API __declspec(dllimport)
-# endif
-#elif LINUX_BUILD
-# define CSM_POINT_CLOUD_EXPORT_API __attribute__ ((visibility("default")))
-#else
-#  define CSM_POINT_CLOUD_EXPORT_API
-#endif
-
-// The getCsmVersion method should use CURRENT_CSM_VERSION to
-// return the CSM API version that the sensor model/plugin was written to.
-#undef  CURRENT_CSM_VERSION
-#define CURRENT_CSM_VERSION csm::Version(3, 0, 2);
-
-namespace csm {
+namespace csm
+{
    //***
    // STRUCT: ModelCoord
    //> This structure represents a three-dimensional location (m0,m1,m2 in
@@ -221,7 +202,7 @@ namespace csm {
    //  returns whether a given model coordinate lies within the box or not.
    //<
    //***
-   class CSM_POINT_CLOUD_EXPORT_API ModelBounds
+   class CSM_EXPORT_API ModelBounds
    {
    public:
       ModelBounds();
@@ -239,10 +220,13 @@ namespace csm {
          //  if m0Dim, m1Dim, or m2Dim are zero.
          //<
 
-      ModelBounds(
-         const ModelCoord& center,
-         const ModelVector& axis0, const ModelVector& axis1, const ModelVector& axis2,
-         double dim0, double dim1, double dim2);
+      ModelBounds(const ModelCoord& center,
+                  const ModelVector& axis0,
+                  const ModelVector& axis1,
+                  const ModelVector& axis2,
+                  double dim0,
+                  double dim1,
+                  double dim2);
          //> This constructor creates a ModelBounds object representing the
          //  oriented bounding box with its center at the given center point,
          //  axes along the given axis0, axis1, and axis2 model-space
@@ -260,31 +244,31 @@ namespace csm {
          //  false otherwise.
          //<
 
-      ModelCoord getCenter() const { return _center; }
+      ModelCoord getCenter() const { return theCenter; }
          //> This function returns the model coordinate of the center of the
          //  bounding region.
          //<
 
-      ModelVector getAxis0() const { return _a0; }
-      ModelVector getAxis1() const { return _a1; }
-      ModelVector getAxis2() const { return _a2; }
+      ModelVector getAxis0() const { return theA0; }
+      ModelVector getAxis1() const { return theA1; }
+      ModelVector getAxis2() const { return theA2; }
          //> These functions return unit-length vectors representing the
          //  three axes of the bounding box.  These axes correspond to the
          //  parameters axis0, axis1, and axis2 of the second constructor,
          //  respectively.
          //<
 
-      double getDimension0() const { return _dim0; }
-      double getDimension1() const { return _dim1; }
-      double getDimension2() const { return _dim2; }
+      double getDimension0() const { return theDim0; }
+      double getDimension1() const { return theDim1; }
+      double getDimension2() const { return theDim2; }
          //> These functions return the dimensions of the bounding box along
          //  the axes axis0, axis1, and axis2, respectively.
          //<
 
    private:
-      ModelCoord _center;
-      ModelVector _a0, _a1, _a2;
-      double _dim0, _dim1, _dim2;
+      ModelCoord theCenter;
+      ModelVector theA0, theA1, theA2;
+      double theDim0, theDim1, theDim2;
 
       static double normalize(ModelVector& v);
          //> Rescales the given vector v so that it has unit length, and
