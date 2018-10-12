@@ -19,7 +19,7 @@
 //    NOTES:
 //
 //#############################################################################
-
+#define CSM_LIBRARY
 #include "PointCloudIsd.h"
 
 csm::Vlr::~Vlr() {}

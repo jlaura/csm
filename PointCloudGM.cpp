@@ -29,7 +29,7 @@
 //    NOTES:
 //
 //#############################################################################
-
+#define CSM_LIBRARY
 #include <algorithm>
 #include "PointCloudGM.h"
 
