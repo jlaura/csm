@@ -32,13 +32,16 @@ target_include_directories(csmapi PUBLIC ${PROJECT_SOURCE_DIR})
 if(WIN32)
   option(CMAKE_USE_WIN32_THREADS_INIT "using WIN32 threads" ON)
   option(gtest_disable_pthreads "Disable uses of pthreads in gtest." ON)
-  install(TARGETS csmapi 
-            RUNTIME 
-              DESTINATION ${CMAKE_INSTALL_LIBDIR}
-            PUBLIC_HEADER
-              DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+  install(TARGETS csmapi
+          LIBRARY
+            DESTINATION ${CMAKE_INSTALL_PREFIX}/Library/lib
+          RUNTIME
+            DESTINATION ${CMAKE_INSTALL_PREFIX}/Library/lib
+          PUBLIC_HEADER
+            DESTINATION ${CMAKE_INSTALL_PREFIX}/Library/include/csm
           )
 else()
-  install(TARGETS csmapi LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
-  install(FILES ${HEADER_FILES} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/csm)
+	message(STATUS "CMAKE INSTALL LIBDIR: ${CMAKE_INSTALL_PREFIX}")
+	install(TARGETS csmapi LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
+	install(FILES ${HEADER_FILES} DESTINATION ${CMAKE_INSTALL_PREFIX}/include/csm)
 endif()
