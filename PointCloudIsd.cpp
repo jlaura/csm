@@ -15,6 +15,7 @@
 //     Date          Author   Comment
 //     -----------   ------   -------
 //     20-Mar-2013   SCM      Initial Coding
+//     26-Sep-2018   SCM      Added define of CSM_LIBRARY for Windows.
 //
 //    NOTES:
 //
