@@ -1,7 +1,7 @@
 include Makefile
 
-CC=./scripts/mscc
-LD=./scripts/mslink
+CC=mscc
+LD=mslink
 CDEBUGFLAGS=-O2
 COPTS=/nologo $(CDEBUGFLAGS) /Zm800 /MD /GR /W1 /EHa $(DEFINES)
 DEFINES=-D_CRT_NONSTDC_NO_DEPRECATE -D_CRT_SECURE_NO_DEPRECATE
@@ -11,9 +11,7 @@ LIBRARY=$(LIBNAME).dll
 
 INSTDIR=$(PWD)/win32
 
-# warning -- this target does not work because it ends up running the linker command from Makefile
-# instead make 'csmapi.dll'
-all: $(LIBRARY)
+all: $(HEADERS) $(LIBRARY)
 
 %.o: %.cpp
 	$(CC) -c $(COPTS) $< -Fo$@
@@ -22,7 +20,7 @@ all: $(LIBRARY)
 	$(CC) -c $(COPTS) $< -Fo$@
 
 $(LIBRARY): $(OBJS)
-	./scripts/objects_to_def -dir . -proj $(@:%.dll=%) > $(@:%.dll=%.ldf)
+	objects_to_def -dir . -proj $(@:%.dll=%) > $(@:%.dll=%.ldf)
 	$(LD) $(COPTS) $(LDOPTS) /DEF:$(@:%.dll=%.ldf) -o $@ $^
 
 install::
